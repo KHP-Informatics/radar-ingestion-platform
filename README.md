@@ -37,37 +37,39 @@ For convenience, this repository includes a copy of the current Confluent platfo
 
 For more information on Confluent and its installation, check out http://docs.confluent.io/3.0.0/quickstart.html#quickstart
 
-Start Zookeeper
+You must perform these steps in order (in our final distro we will need to run these as services, for the moment, they're just nohupped on the test box).
+
+**Start Zookeeper**
 
 `./confluent-3.0.0/bin/zookeeper-server-start confluent-3.0.0/etc/kafka/zookeeper.properties`
 
-Start Kafka
+**Start Kafka**
 
 `./confluent-3.0.0/bin/kafka-server-start confluent-3.0.0/etc/kafka/server.properties`
 
-Start Schema Registry
+**Start Schema Registry**
 
 `./confluent-3.0.0/bin/schema-registry-start confluent-3.0.0/etc/schema-registry/schema-registry.properties` 
 
-Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)
+**Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)**
 
-`mkdir cfg`
+```bash
+mkdir cfg`
+cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties
+echo "" >> /cfg/connect-distributed.properties
+cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF
+```
 
-`cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties`
-
-`echo "" >> /cfg/connect-distributed.properties`
-
-`cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF`
-
-Start Kafka Connect
+**Start Kafka Connect**
 
 `./confluent-3.0.0/bin/connect-distributed /cfg/connect-distributed.properties`
 
-Configure Confluent Control Center
+**Configure Confluent Control Center**
 
-`cp /confluent-3.0.0/etc/confluent-control-center/control-center.properties /cfg/control-center.properties`
-
-`cat <<EOF >> /tmp/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF`
+```bash
+cp /confluent-3.0.0/etc/confluent-control-center/control-center.properties /cfg/control-center.properties`
+cat <<EOF >> /tmp/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF
+```
 
 Start Confluent Control Center
 
