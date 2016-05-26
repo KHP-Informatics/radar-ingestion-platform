@@ -77,7 +77,7 @@ cat <<EOF >> cfg/control-center.properties confluent.controlcenter.internal.topi
 ##Usage
 
 ###Shimmer
-Access your active Shimmer instance at: http://<your-docker-host-ip>:8083
+Access your active Shimmer instance at: http://localhost:8083
 
 You will need to authorize at least 1 device listed in order to capture data.
 
