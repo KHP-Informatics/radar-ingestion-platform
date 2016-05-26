@@ -89,7 +89,8 @@ Add a valid schema to the Schema Registry:
 
 Example of a activity datum in Shimmer:
 
-```{
+```javascript
+{
   "effective_time_frame": {
     "time_interval": {
       "start_date_time": "2016-05-24T16:27:36.402Z",
@@ -101,7 +102,8 @@ Example of a activity datum in Shimmer:
 ```
 
 This becomes schematized (in Avro) as:
-```{
+```javascript
+{
 	"type": "record",
 	"name": "activity",
 	"fields": [{
