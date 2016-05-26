@@ -14,7 +14,9 @@
 `git clone https://github.com/cbitstech/radar-ingestion-platform`
 
 Install and start Shimmer
+
 For convenience, this repo includes a copy of the Shimmer stack
+
 For more information on Shimmer or to git a newer version, visit http://www.getshimmer.co/.
 
 Prepare environment variables, replacing host with the IP or domain name of your Docker host.
@@ -30,7 +32,9 @@ Download and start the containers by running (If you want to see logs and keep t
 `shimmer/docker-compose up -d`
 
 Install and start Confluent platform
+
 For convenience, this repository includes a copy of the current Confluent platform.
+
 For more information on Confluent and its installation, check out http://docs.confluent.io/3.0.0/quickstart.html#quickstart
 
 Start Zookeeper
