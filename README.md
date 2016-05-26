@@ -51,8 +51,18 @@ Start Schema Registry
 
 ##Usage
 
+###Shimmer
 Access your active Shimmer instance at:
 `http://<your-docker-host-ip>:8083`
+
+You will need to authorize at least 1 device listed in order to capture data
+
+###Confluent
+
+Add a valid schema to the Schema Registry by:
+`./confluent-3.0.0/bin/kafka-avro-console-producer \
+         --broker-list localhost:9092 --topic test \
+         --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'`
 
 
 
