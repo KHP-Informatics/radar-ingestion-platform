@@ -55,7 +55,7 @@ You must perform these steps in order (in our final distro we will need to run t
 
 ```bash
 mkdir cfg
-cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties
+cp confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties cfg/connect-distributed.properties
 echo "" >> /cfg/connect-distributed.properties
 cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF
 ```
@@ -67,11 +67,11 @@ cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io
 **Configure Confluent Control Center**
 
 ```bash
-cp /confluent-3.0.0/etc/confluent-control-center/control-center.properties /cfg/control-center.properties`
+cp confluent-3.0.0/etc/confluent-control-center/control-center.properties cfg/control-center.properties`
 cat <<EOF >> /tmp/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF
 ```
 
-Start Confluent Control Center
+**Start Confluent Control Center**
 
 `./confluent-3.0.0/bin/control-center-start /cfg/control-center.properties`
 
