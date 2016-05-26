@@ -1,6 +1,6 @@
 # radar-ingestion-platform
 
-###dependencies
+##Dependencies
 - Docker
 - Java version >=1.7
 - Git
