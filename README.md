@@ -54,7 +54,7 @@ You must perform these steps in order (in our final distro we will need to run t
 **Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)**
 
 ```bash
-mkdir cfg`
+mkdir cfg
 cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties
 echo "" >> /cfg/connect-distributed.properties
 cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF
