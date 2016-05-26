@@ -56,7 +56,10 @@ You must perform these steps in order (in our final distro we will need to run t
 ```sh
 cp confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties cfg/connect-distributed.properties
 echo "" >> cfg/connect-distributed.properties
-cat <<EOF >> cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF
+cat <<EOF >> cfg/connect-distributed.properties 
+consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor 
+producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor 
+EOF
 ```
 
 **Start Kafka Connect**
@@ -67,7 +70,12 @@ cat <<EOF >> cfg/connect-distributed.properties consumer.interceptor.classes=io.
 
 ```sh
 cp confluent-3.0.0/etc/confluent-control-center/control-center.properties cfg/control-center.properties
-cat <<EOF >> cfg/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF
+cat <<EOF >> cfg/control-center.properties 
+confluent.controlcenter.internal.topics.partitions=1 
+confluent.controlcenter.internal.topics.replication=1 
+confluent.monitoring.interceptor.topic.partitions=1 
+confluent.monitoring.interceptor.topic.replication=1 
+EOF
 ```
 
 **Start Confluent Control Center**
