@@ -52,36 +52,82 @@ Start Schema Registry
 Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)
 
 `mkdir cfg`
+
 `cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties`
+
 `echo "" >> /cfg/connect-distributed.properties`
+
 `cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF`
 
 Start Kafka Connect
 
 `./confluent-3.0.0/bin/connect-distributed /cfg/connect-distributed.properties`
 
+Configure Confluent Control Center
+
+`cp /confluent-3.0.0/etc/confluent-control-center/control-center.properties /cfg/control-center.properties`
+
+`cat <<EOF >> /tmp/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF`
+
 Start Confluent Control Center
-``
+
+`./confluent-3.0.0/bin/control-center-start /cfg/control-center.properties`
 
 ##Usage
 
 ###Shimmer
 Access your active Shimmer instance at: http://<your-docker-host-ip>:8083
 
+You will need to authorize at least 1 device listed in order to capture data.
 
-You will need to authorize at least 1 device listed in order to capture data
+On the current test box I've authorized my Google Fit device.
 
 ###Confluent
 
 Add a valid schema to the Schema Registry:
 
-For this case we'll use the op
+Example of a activity datum in Shimmer:
 
-`./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic test --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'`
+```{
+  "effective_time_frame": {
+    "time_interval": {
+      "start_date_time": "2016-05-24T16:27:36.402Z",
+      "end_date_time": "2016-05-24T16:50:24.265Z"
+    }
+  },
+  "activity_name": "Walking"
+}
+```
 
-In this case the object that the schema registry expects requires a key of f1 and a string.
-Anything else will throw an error.
+This becomes schematized (in Avro) as:
+```{
+	"type": "record",
+	"name": "activity",
+	"fields": [{
+		"name": "effective_time_frame",
+		"type": "record",
+		"fields": [{
+			"name": "time_interval",
+			"type": "record",
+			"fields": [{
+				"name": "start_date_time",
+				"type": "date"
+			}, {
+				"name": "end_date_time",
+				"type": "date"
+			}]
+		}]
+	}, {
+		"name": "activity_name",
+		"type": "string"
+	}]
+}
+```
 
+To try up a producer that requires this schema:
+`./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic activity --property value.schema='{"type":"record","name":"activity","fields":[{"name":"effective_time_frame","type":"record","fields":[{"name":"time_interval","type":"record","fields":[{"name":"start_date_time","type":"date"},{"name":"end_date_time","type":"date"}]}]},{"name":"activity_name","type":"string"}]}'`
+
+In this any object passed that does not match the schema listed above will throw an error (which is good!).
 
 
 
