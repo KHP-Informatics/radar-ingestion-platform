@@ -13,7 +13,7 @@
 
 `git clone https://github.com/cbitstech/radar-ingestion-platform`
 
-**Install and start Shimmer**
+### Install and start Shimmer
 
 For convenience, this repo includes a copy of the Shimmer stack
 
@@ -31,7 +31,7 @@ Download and start the containers by running (If you want to see logs and keep t
 
 `shimmer/docker-compose up -d`
 
-**Install and start Confluent platform**
+###Install and start Confluent platform
 
 For convenience, this repository includes a copy of the current Confluent platform.
 
