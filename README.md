@@ -53,8 +53,7 @@ You must perform these steps in order (in our final distro we will need to run t
 
 **Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)**
 
-```bash
-mkdir cfg
+```sh
 cp confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties cfg/connect-distributed.properties
 echo "" >> cfg/connect-distributed.properties
 cat <<EOF >> cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF
@@ -66,7 +65,7 @@ cat <<EOF >> cfg/connect-distributed.properties consumer.interceptor.classes=io.
 
 **Configure Confluent Control Center**
 
-```bash
+```sh
 cp confluent-3.0.0/etc/confluent-control-center/control-center.properties cfg/control-center.properties
 cat <<EOF >> cfg/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF
 ```
@@ -127,7 +126,9 @@ This becomes schematized (in Avro) as:
 ```
 
 To try up a producer that requires this schema:
-`./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic activity --property value.schema='{"type":"record","name":"activity","fields":[{"name":"effective_time_frame","type":"record","fields":[{"name":"time_interval","type":"record","fields":[{"name":"start_date_time","type":"date"},{"name":"end_date_time","type":"date"}]}]},{"name":"activity_name","type":"string"}]}'`
+```sh
+./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic activity --property value.schema='{"type":"record","name":"activity","fields":[{"name":"effective_time_frame","type":"record","fields":[{"name":"time_interval","type":"record","fields":[{"name":"start_date_time","type":"date"},{"name":"end_date_time","type":"date"}]}]},{"name":"activity_name","type":"string"}]}'
+```
 
 In this any object passed that does not match the schema listed above will throw an error (which is good!).
 
