@@ -9,11 +9,11 @@
 - Shimmer
 - Confluent 3.0.0
 
-## Start by cloning this repo
+## Installation
 
 `git clone https://github.com/cbitstech/radar-ingestion-platform`
 
-##Install and start Shimmer
+Install and start Shimmer
 For convenience, this repo includes a copy of the Shimmer stack
 For more information on Shimmer or to git a newer version, visit http://www.getshimmer.co/.
 
@@ -29,24 +29,26 @@ Download and start the containers by running (If you want to see logs and keep t
 
 `shimmer/docker-compose up -d`
 
-Access your active Shimmer instance at:
-
-`http://<your-docker-host-ip>:8083`
-
-##Install and start Confluent platform
+Install and start Confluent platform
 For convenience, this repository includes a copy of the current Confluent platform.
 For more information on Confluent and its installation, check out http://docs.confluent.io/3.0.0/quickstart.html#quickstart
 
 Start Zookeeper
+
 `./confluent-3.0.0/bin/zookeeper-server-start confluent-3.0.0/etc/kafka/zookeeper.properties`
 
 Start Kafka
+
 `./confluent-3.0.0/bin/kafka-server-start confluent-3.0.0/etc/kafka/server.properties`
 
 Start Schema Registry
+
 `./confluent-3.0.0/bin/schema-registry-start confluent-3.0.0/etc/schema-registry/schema-registry.properties` 
 
+##Usage
 
+Access your active Shimmer instance at:
+`http://<your-docker-host-ip>:8083`
 
 
 
