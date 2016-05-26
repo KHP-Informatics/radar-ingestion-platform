@@ -60,9 +60,8 @@ You will need to authorize at least 1 device listed in order to capture data
 ###Confluent
 
 Add a valid schema to the Schema Registry:
-```./confluent-3.0.0/bin/kafka-avro-console-producer \
-         --broker-list localhost:9092 --topic test \
-         --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'```
+
+`./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic test --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'`
 
 
 
