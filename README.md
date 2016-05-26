@@ -129,7 +129,10 @@ This becomes schematized (in Avro) as:
 
 To try up a producer that requires this schema:
 ```sh
-./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic activity --property value.schema='{"type":"record","name":"activity","fields":[{"name":"effective_time_frame","type":"record","fields":[{"name":"time_interval","type":"record","fields":[{"name":"start_date_time","type":"date"},{"name":"end_date_time","type":"date"}]}]},{"name":"activity_name","type":"string"}]}'
+./confluent-3.0.0/bin/kafka-avro-console-producer 
+--broker-list localhost:9092 
+--topic activity 
+--property value.schema='{"type":"record","name":"activity","fields":[{"name":"effective_time_frame","type":"record","fields":[{"name":"time_interval","type":"record","fields":[{"name":"start_date_time","type":"date"},{"name":"end_date_time","type":"date"}]}]},{"name":"activity_name","type":"string"}]}'
 ```
 
 In this any object passed that does not match the schema listed above will throw an error (which is good!).
