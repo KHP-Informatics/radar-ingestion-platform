@@ -62,7 +62,7 @@ cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io
 
 **Start Kafka Connect**
 
-`./confluent-3.0.0/bin/connect-distributed /cfg/connect-distributed.properties`
+`./confluent-3.0.0/bin/connect-distributed cfg/connect-distributed.properties`
 
 **Configure Confluent Control Center**
 
@@ -73,7 +73,7 @@ cat <<EOF >> /tmp/control-center.properties confluent.controlcenter.internal.top
 
 **Start Confluent Control Center**
 
-`./confluent-3.0.0/bin/control-center-start /cfg/control-center.properties`
+`./confluent-3.0.0/bin/control-center-start cfg/control-center.properties`
 
 ##Usage
 
