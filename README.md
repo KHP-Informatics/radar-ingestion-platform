@@ -67,7 +67,7 @@ cat <<EOF >> cfg/connect-distributed.properties consumer.interceptor.classes=io.
 **Configure Confluent Control Center**
 
 ```bash
-cp confluent-3.0.0/etc/confluent-control-center/control-center.properties cfg/control-center.properties`
+cp confluent-3.0.0/etc/confluent-control-center/control-center.properties cfg/control-center.properties
 cat <<EOF >> cfg/control-center.properties confluent.controlcenter.internal.topics.partitions=1 confluent.controlcenter.internal.topics.replication=1 confluent.monitoring.interceptor.topic.partitions=1 confluent.monitoring.interceptor.topic.replication=1 EOF
 ```
 
