@@ -144,8 +144,3 @@ To try up a producer that requires this schema:
 ```
 
 In this any object passed that does not match the schema listed above will throw an error (which is good!).
-
-
-
-
-
