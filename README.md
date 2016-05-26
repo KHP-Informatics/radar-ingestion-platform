@@ -7,7 +7,7 @@
 
 ## This package includes
 - Shimmer
-- Confluent 3.0.0
+- Confluent
 
 ## Installation
 
