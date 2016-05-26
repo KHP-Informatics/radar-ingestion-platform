@@ -49,6 +49,20 @@ Start Schema Registry
 
 `./confluent-3.0.0/bin/schema-registry-start confluent-3.0.0/etc/schema-registry/schema-registry.properties` 
 
+Configure Kafka Connect (create a copy of the default properties file and add monitoring features to Kafka Connect first)
+
+`mkdir cfg`
+`cp /confluent-3.0.0/etc/schema-registry/connect-avro-distributed.properties /cfg/connect-distributed.properties`
+`echo "" >> /cfg/connect-distributed.properties`
+`cat <<EOF >> /cfg/connect-distributed.properties consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor EOF`
+
+Start Kafka Connect
+
+`./confluent-3.0.0/bin/connect-distributed /cfg/connect-distributed.properties`
+
+Start Confluent Control Center
+``
+
 ##Usage
 
 ###Shimmer
@@ -61,9 +75,12 @@ You will need to authorize at least 1 device listed in order to capture data
 
 Add a valid schema to the Schema Registry:
 
+For this case we'll use the op
+
 `./confluent-3.0.0/bin/kafka-avro-console-producer --broker-list localhost:9092 --topic test --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'`
 
-
+In this case the object that the schema registry expects requires a key of f1 and a string.
+Anything else will throw an error.
 
 
 
